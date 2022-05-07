@@ -8,14 +8,19 @@ import { createI18n } from "vue-i18n";
 import App from "./App.vue";
 import "./assets/index.css";
 import { router } from "./router";
+
+// Create plugins
 const i18n = createI18n();
 const pinia = createPinia();
 
+// Create app
 const app = createApp(App);
 
+// Use plugins
 app.use(router);
 app.use(PrimeVue);
 app.use(pinia);
 app.use(i18n);
 
+// Start the app
 app.mount("#app");
