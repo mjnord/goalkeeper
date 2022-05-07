@@ -10,7 +10,11 @@ import "./assets/index.css";
 import { router } from "./router";
 
 // Create plugins
-const i18n = createI18n();
+const i18n = createI18n({
+  legacy: false,
+  locale: "sv",
+  fallbackLocale: "en",
+});
 const pinia = createPinia();
 
 // Create app
