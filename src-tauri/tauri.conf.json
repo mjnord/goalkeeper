@@ -17,6 +17,13 @@
       "http": {
         "all": true,
         "scope": ["http://**", "https://**"]
+      },
+      "fs": {
+        "all": true,
+        "scope": ["*"]
+      },
+      "path": {
+        "all": true
       }
     },
     "bundle": {
