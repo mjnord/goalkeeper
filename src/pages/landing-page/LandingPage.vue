@@ -1,15 +1,7 @@
 <template>
   <div class="w-screen h-screen grid place-items-center">
-    <h1>{{ t("title") }}</h1>
-    <button @click="locale = 'en'">EN</button>
+    <h1>Welcome to landing page!</h1>
   </div>
 </template>
 
-<script setup lang="ts">
-import { useI18n } from 'vue-i18n';
-import { messages } from './landing-page.i18n';
-const { t, locale } = useI18n({ messages });
-
-
-
-</script>
+<script setup lang="ts"></script>

@@ -3,13 +3,13 @@
   "private": true,
   "version": "0.0.0",
   "scripts": {
-    "dev": "concurrently npm:watch:*",
-    "watch:vite": "vite",
-    "watch:go": "cd src-go && air",
+    "dev": "vite",
     "build": "vue-tsc --noEmit && vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "tauri": "tauri"
   },
   "dependencies": {
+    "@tauri-apps/api": "^1.0.0-rc.4",
     "pinia": "^2.0.14",
     "primeicons": "^5.0.0",
     "primevue": "^3.12.6",
@@ -18,9 +18,9 @@
     "vue-router": "^4.0.15"
   },
   "devDependencies": {
+    "@tauri-apps/cli": "^1.0.0-rc.9",
     "@vitejs/plugin-vue": "^2.3.1",
     "autoprefixer": "^10.4.7",
-    "concurrently": "^7.1.0",
     "postcss": "^8.4.13",
     "tailwindcss": "^3.0.24",
     "typescript": "^4.5.4",
