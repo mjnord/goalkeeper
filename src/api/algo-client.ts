@@ -34,8 +34,9 @@ const httpAlgoToTauri = async (
       "X-Algo-API-Token": token,
     },
   });
+  const stringifiedData = JSON.stringify(res.data);
   const baseRes: BaseHTTPClientResponse = {
-    body: Uint8Array.from(res.data as number[]),
+    body: new TextEncoder().encode(stringifiedData),
     headers: res.headers,
     status: res.status,
   };
