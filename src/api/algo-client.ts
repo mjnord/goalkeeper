@@ -6,7 +6,6 @@ import { Query } from "algosdk/dist/types/src/client/baseHTTPClient";
 const token =
   "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
 const server = "http://localhost:4001";
-const port = 8080;
 
 const composeUrl = (path: string, query?: Query<unknown>): string => {
   const urlString = `${server}${path}`;
@@ -58,4 +57,4 @@ const baseHttpClient: BaseHTTPClient = {
   },
 };
 
-export const algoClient = new Algodv2(baseHttpClient, server, port);
+export const algoClient = new Algodv2(baseHttpClient, server);

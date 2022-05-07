@@ -8,7 +8,7 @@
 
 <script setup lang="ts">
 import { ref } from 'vue';
-import { algoClient } from '../../api/algo-client';
+import { algoClient } from '@/api/algo-client';
 const value = ref("")
 async function printStatus() {
   const status = await algoClient.status().do();
