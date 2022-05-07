@@ -17,7 +17,7 @@
               <FormKit type="submit" :classes="{
                 'outer': 'm-0'
               }" />
-              <ConnectionValidator @click="testConnection" />
+              <ConnectionValidator @click="testConnection" :state="connectionState" />
             </div>
           </template>
         </FormKit>
@@ -29,19 +29,22 @@
 <script lang="ts" setup>
 import ConnectionValidator from './components/ConnectionValidator.vue'
 
-import { reactive } from 'vue';
+import { reactive, ref } from 'vue';
 import { Node } from '@/db/types/node';
-import { getNode } from '@formkit/core'
 import { db } from '@/db/database';
 import { useRouter } from 'vue-router';
 import { useToast } from '@/composables/useToast';
 import { useI18n } from 'vue-i18n';
 import { messages } from './i18n/messages';
 import { isValid } from '@/utils/forms';
+import { ConnectionState } from './types/connection-state';
+import { getNode } from '@formkit/core';
+import { createAlgoClient } from '@/api/algo-client';
 
 const router = useRouter();
 const toast = useToast();
-const { t } = useI18n({ messages })
+const { t } = useI18n({ messages });
+const connectionState = ref<ConnectionState>("idle")
 
 const formData = reactive({
   url: "",
@@ -51,9 +54,19 @@ const formData = reactive({
 
 async function testConnection() {
   if (!isValid("form")) {
-    return toast(t("invalidForm"), "warn")
+    return toast(t("invalidForm"), "warn");
   }
 
+  connectionState.value = "loading";
+  try {
+    const client = createAlgoClient(formData.url, formData.apiToken);
+    await client.healthCheck().do();
+    connectionState.value = "success";
+  } catch (e) {
+    connectionState.value = "error";
+    const reason = e instanceof Error ? e.message : ""
+    toast(t("testConnectionError", { reason }), "error")
+  }
 }
 
 async function addNode() {
@@ -65,13 +78,15 @@ async function addNode() {
     url: formData.url
   };
   try {
+    const client = createAlgoClient(formData.url, formData.apiToken);
+    await client.healthCheck().do();
     await db.setNode(node);
     router.replace({
       name: "landing-page"
-    })
+    });
   } catch (e) {
-    const reason = e instanceof Error ? e.message : ""
-    toast(t("addNode", { reason }), "error")
+    const reason = e instanceof Error ? e.message : "";
+    toast(t("addNode", { reason }), "error");
   }
 }
 </script>

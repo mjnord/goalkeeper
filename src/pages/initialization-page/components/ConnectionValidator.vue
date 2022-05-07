@@ -1,10 +1,10 @@
 <template>
-  <div class="p-3 cursor-pointer" v-tooltip="t('testConnection')" @click="$emit('click')">
+  <div class="p-3 cursor-pointer" v-tooltip="t('testConnectionTooltip')" @click="$emit('click')">
     <i class="pi" :class="{
       'pi-sync': state === 'idle',
-      'pi-spin': state === 'loading',
-      'pi-times': state === 'error',
-      'text-red-600': state === 'error'
+      'pi-sync pi-spin': state === 'loading',
+      'pi-check-circle text-green-600': state === 'success',
+      'pi-times text-red-600': state === 'error',
     }">
     </i>
   </div>
@@ -14,6 +14,7 @@
 import { PropType } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { messages } from '../i18n/messages';
+import { ConnectionState } from '../types/connection-state';
 const { t } = useI18n({
   messages
 });
@@ -21,9 +22,10 @@ const { t } = useI18n({
 defineEmits(["click"])
 defineProps({
   state: {
-    type: String as PropType<"loading" | "idle" | "error" | "success">,
+    type: String as PropType<ConnectionState>,
     default: "idle"
   }
-})
+});
+
 
 </script>
