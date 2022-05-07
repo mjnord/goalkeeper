@@ -5,7 +5,7 @@ import { Query } from "algosdk/dist/types/src/client/baseHTTPClient";
 
 const token =
   "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
-const server = "http://127.0.0.1:4001";
+const server = "http://localhost:4001";
 const port = 8080;
 
 const composeUrl = (path: string, query?: Query<unknown>): string => {
