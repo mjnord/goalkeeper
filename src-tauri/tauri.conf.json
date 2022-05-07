@@ -10,6 +10,12 @@
     "beforeBuildCommand": "npm run build"
   },
   "tauri": {
+    "updater": {
+      "active": false
+    },
+    "allowlist": {
+      "all": true
+    },
     "bundle": {
       "active": true,
       "targets": "all",
@@ -42,12 +48,6 @@
         "digestAlgorithm": "sha256",
         "timestampUrl": ""
       }
-    },
-    "updater": {
-      "active": false
-    },
-    "allowlist": {
-      "all": true
     },
     "windows": [
       {
