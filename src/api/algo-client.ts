@@ -40,7 +40,7 @@ export const createAlgoClient = (serverUrl: string, token: string) => {
   };
 
   const baseHttpClient: BaseHTTPClient = {
-    async delete(path, data, query, headers): Promise<BaseHTTPClientResponse> {
+    delete(path, data, query, headers): Promise<BaseHTTPClientResponse> {
       const url = composeUrl(path, query);
       return httpAlgoToTauri(url, "DELETE", headers, data);
     },
