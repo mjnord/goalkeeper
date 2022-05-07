@@ -62,9 +62,10 @@ async function testConnection() {
     const client = createAlgoClient(formData.url, formData.apiToken);
     await client.healthCheck().do();
     connectionState.value = "success";
+    toast(t("connectionSuccess"), "success")
   } catch (e) {
     connectionState.value = "error";
-    const reason = e instanceof Error ? e.message : ""
+    const reason = e instanceof Error ? e.message : e;
     toast(t("testConnectionError", { reason }), "error")
   }
 }
@@ -85,7 +86,9 @@ async function addNode() {
       name: "landing-page"
     });
   } catch (e) {
-    const reason = e instanceof Error ? e.message : "";
+    console.error(e)
+    console.log(e)
+    const reason = e instanceof Error ? e.message : e;
     toast(t("addNode", { reason }), "error");
   }
 }

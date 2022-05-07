@@ -1,29 +1,37 @@
 import { fs, path } from "@tauri-apps/api";
 import { Node } from "./types/node";
 
+const dbName = `goalkeeper${path.sep}db.json`;
 interface Db {
   nodes: Node[];
 }
+const writeDatabase = (contents: string) =>
+  fs.writeFile(
+    {
+      path: dbName,
+      contents,
+    },
+    { dir: fs.BaseDirectory.Data }
+  );
 
-const getDbPath = async (): Promise<string> => {
-  const appDir = await path.resolve("../database/db.json");
-  return appDir;
-};
+const readDatabase = () =>
+  fs.readTextFile(dbName, {
+    dir: fs.BaseDirectory.Data,
+  });
 
 export const getDb = async (): Promise<Db> => {
-  const dbName = await getDbPath();
   try {
-    await fs.readTextFile(dbName);
+    await readDatabase();
   } catch {
-    await fs.writeFile({ path: dbName, contents: '{ "nodes": [] }' });
+    await fs.createDir("goalkeeper", {
+      dir: fs.BaseDirectory.Data,
+      recursive: true,
+    });
+    await writeDatabase('{ "nodes": [] }');
   }
-  return fs.readTextFile(dbName).then((res) => JSON.parse(res));
+  return readDatabase().then((res) => JSON.parse(res));
 };
 
 export const setDb = async (db: unknown) => {
-  const dbName = await getDbPath();
-  return fs.writeFile({
-    path: dbName,
-    contents: JSON.stringify(db),
-  });
+  return writeDatabase(JSON.stringify(db));
 };
