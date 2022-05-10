@@ -21,7 +21,8 @@ const readDatabase = () =>
 
 export const getDb = async (): Promise<Db> => {
   try {
-    return readDatabase().then((res) => JSON.parse(res));
+    const res = await readDatabase().then((res) => JSON.parse(res));
+    return res;
   } catch {
     await fs.createDir("goalkeeper", {
       dir: fs.BaseDirectory.Data,
