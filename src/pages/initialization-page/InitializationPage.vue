@@ -38,7 +38,6 @@ import { useI18n } from 'vue-i18n';
 import { messages } from './i18n/messages';
 import { isValid } from '@/utils/forms';
 import { ConnectionState } from './types/connection-state';
-import { getNode } from '@formkit/core';
 import { createAlgoClient } from '@/api/algo-client';
 
 const router = useRouter();
@@ -86,8 +85,6 @@ async function addNode() {
       name: "landing-page"
     });
   } catch (e) {
-    console.error(e)
-    console.log(e)
     const reason = e instanceof Error ? e.message : e;
     toast(t("addNode", { reason }), "error");
   }

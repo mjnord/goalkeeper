@@ -1,7 +1,5 @@
 import { db } from "@/db/database";
 import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router";
-import InitializationPage from "../pages/initialization-page/InitializationPage.vue";
-import LandingPage from "../pages/landing-page/LandingPage.vue";
 
 export const routes: RouteRecordRaw[] = [
   {
@@ -14,12 +12,13 @@ export const routes: RouteRecordRaw[] = [
       }
       return true;
     },
-    component: LandingPage,
+    component: () => import("../pages/landing-page/LandingPage.vue"),
   },
   {
     path: "/init",
     name: "init",
-    component: InitializationPage,
+    component: () =>
+      import("../pages/initialization-page/InitializationPage.vue"),
   },
 ];
 
