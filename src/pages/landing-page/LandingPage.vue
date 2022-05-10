@@ -1,8 +1,30 @@
 <template>
   <div class="w-screen h-screen grid place-items-center">
-    <h1>Welcome to landing page!</h1>
+    <div v-for="node in nodes">
+      {{ node }}
+      <button @click="runFunc(node)">Do stuff</button>
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
+import { createAlgoClient } from '@/api/algo-client';
+import { db } from '@/db/database';
+import { Node } from '@/db/types/node';
+import { ref } from 'vue';
+
+const nodes = ref<Node[]>([]);
+
+db.getNodes().then(data => {
+  nodes.value = data
+})
+
+async function runFunc(node: Node) {
+  const client = createAlgoClient(node.url, node.token);
+  const res = await client.versionsCheck().do();
+  console.log(res);
+
+}
+
+
 </script>
