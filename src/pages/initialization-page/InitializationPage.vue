@@ -51,6 +51,14 @@ const formData = reactive({
   name: ""
 });
 
+async function pingClient() {
+  const client = createAlgoClient(formData.url, formData.apiToken);
+  const res = await client.status().do();
+  if (res["message"]) {
+    throw new Error(res["message"])
+  }
+}
+
 async function testConnection() {
   if (!isValid("form")) {
     return toast(t("invalidForm"), "warn");
@@ -58,8 +66,7 @@ async function testConnection() {
 
   connectionState.value = "loading";
   try {
-    const client = createAlgoClient(formData.url, formData.apiToken);
-    await client.healthCheck().do();
+    await pingClient()
     connectionState.value = "success";
     toast(t("connectionSuccess"), "success")
   } catch (e) {
@@ -78,8 +85,7 @@ async function addNode() {
     url: formData.url
   };
   try {
-    const client = createAlgoClient(formData.url, formData.apiToken);
-    await client.healthCheck().do();
+    await pingClient()
     await db.setNode(node);
     router.replace({
       name: "landing-page"
