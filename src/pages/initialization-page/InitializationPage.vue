@@ -11,7 +11,7 @@
           <FormKit type="text" :label="t('serverUrl')" name="url" validation="required|url"
             validation-visibility="live">
           </FormKit>
-          <FormKit type="text" :label="t('apiToken')" name="apiToken" validation="required"
+          <FormKit type="text" :label="t('apiToken')" name="apiToken" validation="required|exactLength:64"
             validation-visibility="live" />
           <template #actions>
             <div class="flex justify-between items-center py-2">
