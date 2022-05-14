@@ -55,13 +55,13 @@
 import ConnectionValidator from "./components/ConnectionValidator.vue";
 
 import { reactive, ref } from "vue";
-import { Node } from "@/db/types/node";
+import { GoalkeeperNode } from "@/db/types/node";
 import { db } from "@/db/database";
 import { useRouter } from "vue-router";
 import { useToast } from "@/composables/useToast";
 import { useI18n } from "vue-i18n";
 import { messages } from "./i18n/messages";
-import { isValid } from "@/utils/forms";
+import { isValid } from "@/forms/utils";
 import { ConnectionState } from "./types/connection-state";
 import { createAlgoClient } from "@/api/algo-client";
 
@@ -102,7 +102,7 @@ async function testConnection() {
 }
 
 async function addNode() {
-  const node: Node = {
+  const node: GoalkeeperNode = {
     dateAdded: new Date().toISOString(),
     id: formData.name,
     name: formData.name,

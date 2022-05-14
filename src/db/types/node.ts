@@ -1,4 +1,4 @@
-export interface Node {
+export interface GoalkeeperNode {
   url: string;
   token: string;
   id: string;

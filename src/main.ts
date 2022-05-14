@@ -1,5 +1,5 @@
 import "@formkit/themes/genesis";
-import { defaultConfig, plugin } from "@formkit/vue";
+import { plugin } from "@formkit/vue";
 import { createPinia } from "pinia";
 import "primeicons/primeicons.css";
 import PrimeVue from "primevue/config";
@@ -11,8 +11,8 @@ import { createApp } from "vue";
 import { createI18n } from "vue-i18n";
 import App from "./App.vue";
 import "./assets/index.css";
+import { config } from "./forms";
 import { router } from "./router";
-import { exactLength } from "./utils/forms";
 
 // Create plugins
 const i18n = createI18n({
@@ -29,18 +29,7 @@ app.use(router);
 app.use(PrimeVue);
 app.use(pinia);
 app.use(i18n);
-app.use(plugin, defaultConfig({
-  rules: { exactLength },
-  messages: {
-    en: {
-      validation: {
-        exactLength({ args }) {
-          return `A value of exactly length ${args} required.`
-        }
-      }
-    }
-  }
-}));
+app.use(plugin, config);
 app.use(ToastService);
 
 // Use directives

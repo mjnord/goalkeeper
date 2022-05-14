@@ -1,9 +1,9 @@
 import { fs, path } from "@tauri-apps/api";
-import { Node } from "./types/node";
+import { GoalkeeperNode } from "./types/node";
 
 const dbName = `goalkeeper${path.sep}db.json`;
 interface Db {
-  nodes: Node[];
+  nodes: GoalkeeperNode[];
 }
 const writeDatabase = (contents: string) =>
   fs.writeFile(
