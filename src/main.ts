@@ -1,5 +1,6 @@
 import "@formkit/themes/genesis";
 import { plugin } from "@formkit/vue";
+import { appWindow, PhysicalSize } from "@tauri-apps/api/window";
 import { createPinia } from "pinia";
 import "primeicons/primeicons.css";
 import PrimeVue from "primevue/config";
@@ -14,26 +15,32 @@ import "./assets/index.css";
 import { config } from "./forms";
 import { router } from "./router";
 
-// Create plugins
-const i18n = createI18n({
-  legacy: false,
-  locale: "en",
-});
-const pinia = createPinia();
+async function main() {
+  // Set minimum window size
+  await appWindow.setMinSize(new PhysicalSize(1600, 850));
 
-// Create app
-const app = createApp(App);
+  // Create plugins
+  const i18n = createI18n({
+    legacy: false,
+    locale: "en",
+  });
+  const pinia = createPinia();
 
-// Use plugins
-app.use(router);
-app.use(PrimeVue);
-app.use(pinia);
-app.use(i18n);
-app.use(plugin, config);
-app.use(ToastService);
+  // Create app
+  const app = createApp(App);
 
-// Use directives
-app.directive("tooltip", Tooltip);
+  // Use plugins
+  app.use(router);
+  app.use(PrimeVue);
+  app.use(pinia);
+  app.use(i18n);
+  app.use(plugin, config);
+  app.use(ToastService);
 
-// Start the app
-app.mount("#app");
+  // Use directives
+  app.directive("tooltip", Tooltip);
+
+  // Start the app
+  app.mount("#app");
+}
+main();

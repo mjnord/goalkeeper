@@ -4,7 +4,11 @@ import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router";
 export const routes: RouteRecordRaw[] = [
   {
     path: "/",
-    name: "landing-page",
+    name: "nodes-page",
+    meta: {
+      active: true,
+      i18n: "nodesPage",
+    },
     beforeEnter: async () => {
       const nodes = await db.getNodes();
       if (!nodes.length) {
@@ -12,11 +16,14 @@ export const routes: RouteRecordRaw[] = [
       }
       return true;
     },
-    component: () => import("../pages/landing-page/LandingPage.vue"),
+    component: () => import("../pages/nodes-page/NodesPage.vue"),
   },
   {
     path: "/init",
     name: "init",
+    meta: {
+      i18n: "initialization-page",
+    },
     component: () =>
       import("../pages/initialization-page/InitializationPage.vue"),
   },
