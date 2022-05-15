@@ -8,23 +8,20 @@
 </template>
 
 <script setup lang="ts">
-import { createAlgoClient } from '@/api/algo-client';
-import { db } from '@/db/database';
-import { Node } from '@/db/types/node';
-import { ref } from 'vue';
+import { createAlgoClient } from "@/api/algo-client";
+import { db } from "@/db/database";
+import { GoalkeeperNode } from "@/db/types/node";
+import { ref } from "vue";
 
-const nodes = ref<Node[]>([]);
+const nodes = ref<GoalkeeperNode[]>([]);
 
-db.getNodes().then(data => {
-  nodes.value = data
-})
+db.getNodes().then((data) => {
+  nodes.value = data;
+});
 
-async function runFunc(node: Node) {
+async function runFunc(node: GoalkeeperNode) {
   const client = createAlgoClient(node.url, node.token);
   const res = await client.versionsCheck().do();
   console.log(res);
-
 }
-
-
 </script>
