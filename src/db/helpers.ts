@@ -2,9 +2,11 @@ import { fs, path } from "@tauri-apps/api";
 import { GoalkeeperNode } from "./types/node";
 
 const dbName = `goalkeeper${path.sep}db.json`;
+
 interface Db {
   nodes: GoalkeeperNode[];
 }
+
 const writeDatabase = (contents: string) =>
   fs.writeFile(
     {
@@ -35,4 +37,12 @@ export const getDb = async (): Promise<Db> => {
 
 export const setDb = async (db: unknown) => {
   return writeDatabase(JSON.stringify(db));
+};
+
+export const clearDb = async () => {
+  try {
+    await writeDatabase('{ "nodes": [] }');
+  } catch {
+    throw new Error("Couldn't clear goalkeeper node database.");
+  }
 };

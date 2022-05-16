@@ -1,4 +1,4 @@
-import { getDb, setDb } from "./helpers";
+import { getDb, setDb, clearDb } from "./helpers";
 import { GoalkeeperNode } from "./types/node";
 
 export const db = {
@@ -10,5 +10,10 @@ export const db = {
     const db = await getDb();
     db.nodes.push(node);
     return setDb(db);
+  },
+  async clearNodes() : Promise<GoalkeeperNode[]> {
+    const db = await getDb();
+    clearDb();
+    return db.nodes;
   },
 };

@@ -12,6 +12,7 @@ export const routes: RouteRecordRaw[] = [
     beforeEnter: async () => {
       const nodes = await db.getNodes();
       if (!nodes.length) {
+        console.log("!nodes.length: returning to init");
         return { name: "init" };
       }
       return true;
@@ -22,7 +23,8 @@ export const routes: RouteRecordRaw[] = [
     path: "/init",
     name: "init",
     meta: {
-      i18n: "initialization-page",
+      active: true,
+      i18n: "initializationPage",
     },
     component: () =>
       import("../pages/initialization-page/InitializationPage.vue"),

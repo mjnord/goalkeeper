@@ -1,6 +1,15 @@
 <template>
   <div>
-    <h1>Nodes</h1>
+    <div class="flex justify-between">
+      <h1>Nodes</h1>
+      <Button
+        @click="clearNodes()"
+        type="button"
+        class="p-button-raised p-button-text"
+      >
+        Clear Nodes
+      </Button>
+    </div>
     <div
       class="bg-slate-50 shadow-md rounded-md p-4 w-full flex justify-between"
       v-for="node in nodes"
@@ -47,5 +56,10 @@ async function doSomething(node: GoalkeeperNode) {
   const client = createAlgoClient(node.url, node.token);
   const status = await client.status().do();
   toast(JSON.stringify(status), "success");
+}
+
+async function clearNodes() {
+  const nodes = db.clearNodes();
+  console.log("Cleared nodes " + nodes);
 }
 </script>
