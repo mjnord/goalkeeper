@@ -113,7 +113,7 @@ async function addNode() {
     await pingClient();
     await db.setNode(node);
     router.replace({
-      name: "landing-page",
+      name: "nodes-page",
     });
   } catch (e) {
     const reason = e instanceof Error ? e.message : e;
