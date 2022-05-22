@@ -2,40 +2,52 @@
   <div>
     <div class="flex justify-between">
       <h1>Nodes</h1>
-      <Button
-        @click="clearNodes()"
-        type="button"
-        class="p-button-raised p-button-text"
-      >
-        Clear Nodes
-      </Button>
-    </div>
-    <div
-      class="bg-slate-50 shadow-md rounded-md p-4 w-full flex justify-between"
-      v-for="node in nodes"
-    >
-      <div class="flex flex-col">
-        <h1>
-          {{ node.name }}
-        </h1>
-        <h2>
-          {{ node.url }}
-        </h2>
+      <div class="flex space-x-2">
+        <Button
+          @click="clearNodes()"
+          type="button"
+          class="p-button-raised p-button-text"
+        >
+          Clear Nodes
+        </Button>
+        <Button
+          class="p-button-raised p-button-text"
+          @click="showAddNodeDialog = true"
+        >
+          Add Node
+        </Button>
       </div>
-      <Button
-        @click="doSomething(node)"
-        type="button"
-        class="p-button-raised p-button-text"
+    </div>
+    <div class="mt-5">
+      <div
+        class="bg-slate-50 shadow-md rounded-md p-4 w-full flex justify-between mb-2"
+        v-for="node in nodes"
       >
-        Do Something
-      </Button>
+        <div class="flex flex-col">
+          <h1>
+            {{ node.name }}
+          </h1>
+          <h2>
+            {{ node.url }}
+          </h2>
+        </div>
+        <Button
+          @click="doSomething(node)"
+          type="button"
+          class="p-button-raised p-button-text"
+        >
+          Do Something
+        </Button>
+      </div>
     </div>
   </div>
+  <AddNodeDialog @submit="addNode" v-model:visible="showAddNodeDialog" />
 </template>
 
 <script lang="ts" setup>
 // Components
 import Button from "primevue/button";
+import AddNodeDialog from "./components/AddNodeDialog.vue";
 
 // Imports
 import { createAlgoClient } from "@/api/algo-client";
@@ -51,9 +63,15 @@ const router = useRouter();
 
 // Variables
 const nodes = ref<GoalkeeperNode[]>([]);
+const showAddNodeDialog = ref(false);
 
 // Initialization
-db.getNodes().then((res) => (nodes.value = res));
+getNodes();
+
+async function getNodes() {
+  const dbNodes = await db.getNodes();
+  nodes.value = dbNodes;
+}
 
 async function doSomething(node: GoalkeeperNode) {
   const client = createAlgoClient(node.url, node.token);
@@ -63,6 +81,11 @@ async function doSomething(node: GoalkeeperNode) {
   console.log({ res });
   const status = await client.status().do();
   toast(JSON.stringify(status), "success");
+}
+
+async function addNode() {
+  showAddNodeDialog.value = false;
+  await getNodes();
 }
 
 async function clearNodes() {

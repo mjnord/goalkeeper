@@ -1,6 +1,6 @@
 export const messages = {
   en: {
-    addNode: "Unable to add node because of [{reason}]",
+    addNodeErr: "Unable to add node because of [{reason}]",
     name: "Server Name",
     serverUrl: "Server URL",
     apiToken: "Api-Token",
@@ -11,5 +11,6 @@ export const messages = {
       "Welcome to Goalkeeper, seems like there are no previous nodes. Please add your first one.",
     testConnectionError: "Connection failed because of [{reason}]",
     connectionSuccess: "Connection successfully established!",
+    addNodeTitle: "Add Node",
   },
 };

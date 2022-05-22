@@ -2,7 +2,7 @@
   <Toast position="top-right" />
   <div class="flex w-screen">
     <Toolbar></Toolbar>
-    <div class="p-2 w-full">
+    <div class="p-4 w-full">
       <router-view></router-view>
     </div>
   </div>
