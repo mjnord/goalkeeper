@@ -4,6 +4,11 @@
 )]
 use tauri::{CustomMenuItem, Menu, MenuItem, Submenu};
 
+#[tauri::command]
+fn execute(query: String) -> String {
+    query
+}
+
 fn main() {
     let about_menu = Submenu::new(
         "App",
@@ -58,6 +63,7 @@ fn main() {
                 event.window().close().unwrap();
             }
         })
+        .invoke_handler(tauri::generate_handler![execute])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
 }

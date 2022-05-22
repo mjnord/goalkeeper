@@ -43,8 +43,11 @@ import { useToast } from "@/composables/useToast";
 import { db } from "@/db/database";
 import { GoalkeeperNode } from "@/db/types/node";
 import { ref } from "vue";
+import { useRouter } from "vue-router";
+import { invoke } from "@tauri-apps/api";
 // Composeables
 const toast = useToast();
+const router = useRouter();
 
 // Variables
 const nodes = ref<GoalkeeperNode[]>([]);
@@ -54,12 +57,16 @@ db.getNodes().then((res) => (nodes.value = res));
 
 async function doSomething(node: GoalkeeperNode) {
   const client = createAlgoClient(node.url, node.token);
+  const res = await invoke("execute", {
+    query: "Hello World!",
+  });
+  console.log({ res });
   const status = await client.status().do();
   toast(JSON.stringify(status), "success");
 }
 
 async function clearNodes() {
-  const nodes = db.clearNodes();
-  console.log("Cleared nodes " + nodes);
+  nodes.value = await db.clearNodes();
+  router.replace({ name: "init" });
 }
 </script>
