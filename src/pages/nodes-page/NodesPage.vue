@@ -74,13 +74,11 @@ async function getNodes() {
 }
 
 async function doSomething(node: GoalkeeperNode) {
-  const client = createAlgoClient(node.url, node.token);
-  const res = await invoke("execute", {
-    query: "Hello World!",
-  });
-  console.log({ res });
-  const status = await client.status().do();
-  toast(JSON.stringify(status), "success");
+  invoke("execute", {
+    query: `INSERT INTO cat_colors (name) values red`,
+  })
+    .then(console.log)
+    .catch(console.log);
 }
 
 async function addNode() {

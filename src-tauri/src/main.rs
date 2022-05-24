@@ -2,16 +2,19 @@
     all(not(debug_assertions), target_os = "windows"),
     windows_subsystem = "windows"
 )]
+
 use tauri::{CustomMenuItem, Menu, MenuItem, Submenu};
 
 #[tauri::command]
-fn execute(query: String) -> String {
-    query
+fn execute(query: String) -> Result<(), String> {
+    let connection = sqlite::open(":memory:").unwrap();
+    let res = connection.execute(query);
+    res.map_err(|e| e.to_string())
 }
 
 fn main() {
     let about_menu = Submenu::new(
-        "App",
+        "Test",
         Menu::new()
             .add_native_item(MenuItem::Hide)
             .add_native_item(MenuItem::HideOthers)
