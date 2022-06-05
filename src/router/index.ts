@@ -2,6 +2,8 @@ import Compass from "@/assets/icons/Compass.vue";
 import ServerNetwork from "@/assets/icons/ServerNetwork.vue";
 import { Component } from "vue";
 import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router";
+import NodeDetailsPage from "../pages/node-details/NodeDetails.vue";
+import NodesPage from "../pages/nodes-page/NodesPage.vue";
 
 type GoalkeeperRoute = RouteRecordRaw & {
   meta: {
@@ -20,7 +22,7 @@ export const routes: GoalkeeperRoute[] = [
       i18n: "nodesPage",
       icon: ServerNetwork,
     },
-    component: () => import("../pages/nodes-page/NodesPage.vue"),
+    component: NodesPage,
   },
   {
     path: "/discover",
@@ -30,7 +32,7 @@ export const routes: GoalkeeperRoute[] = [
       i18n: "discoverPage",
       icon: Compass,
     },
-    component: () => import("../pages/nodes-page/NodesPage.vue"),
+    component: NodesPage,
   },
   {
     path: "/nodes/:nodeId",
@@ -39,7 +41,7 @@ export const routes: GoalkeeperRoute[] = [
       active: false,
       i18n: "nodeDetails",
     },
-    component: () => import("../pages/node-details/NodeDetails.vue"),
+    component: NodeDetailsPage,
   },
 
   // will match everything and put it under `$route.params.pathMatch`
