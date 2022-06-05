@@ -1,6 +1,6 @@
 import "@formkit/themes/genesis";
 import { plugin } from "@formkit/vue";
-import { appWindow, PhysicalSize } from "@tauri-apps/api/window";
+import { appWindow, PhysicalSize, currentMonitor } from "@tauri-apps/api/window";
 import { createPinia } from "pinia";
 import "primeicons/primeicons.css";
 import PrimeVue from "primevue/config";
@@ -17,7 +17,11 @@ import { router } from "./router";
 
 async function main() {
   // Set minimum window size
-  await appWindow.setMinSize(new PhysicalSize(1600, 850));
+  const monitor = await currentMonitor();
+  if (monitor){
+    const minSize = new PhysicalSize(Math.round(monitor.size.width * 0.4), Math.round(monitor.size.height * 0.4));
+    await appWindow.setMinSize(minSize);
+  }
 
   // Create plugins
   const i18n = createI18n({
