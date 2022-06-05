@@ -27,6 +27,7 @@
             network="Testnet"
             :status="'online'"
             :added="node.dateAdded"
+            @click="$router.push('/nodes/' + node.id)"
           />
         </div>
       </div>
