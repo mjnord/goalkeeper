@@ -1,43 +1,34 @@
 <template>
   <div>
-    <div class="flex justify-between">
-      <h1>Nodes</h1>
-      <div class="flex space-x-2">
+    <div class="flex justify-between items-center">
+      <div class="flex flex-col">
+        <h1 class="text-2xl">Nodes</h1>
+        <small>
+          <a target="_blank" href="https://google.com" class="text-blue-600">
+            Provide Feedback
+          </a>
+        </small>
+      </div>
+      <div class="flex">
         <Button
-          @click="clearNodes()"
-          type="button"
-          class="p-button-raised p-button-text"
-        >
-          Clear Nodes
-        </Button>
-        <Button
-          class="p-button-raised p-button-text"
-          @click="showAddNodeDialog = true"
-        >
-          Add Node
-        </Button>
+          @click="addNode"
+          icon="pi pi-plus-circle"
+          class="p-button-rounded p-button-info p-button-text p-button-lg !text-gk-oxford-blue mr-2"
+        />
       </div>
     </div>
     <div class="mt-5">
-      <div
-        class="bg-slate-50 shadow-md rounded-md p-4 w-full flex justify-between mb-2"
-        v-for="node in nodes"
-      >
-        <div class="flex flex-col">
-          <h1>
-            {{ node.name }}
-          </h1>
-          <h2>
-            {{ node.url }}
-          </h2>
+      <div class="w-full" v-for="(node, idx) in nodes">
+        <Divider v-if="idx > 0" class="!py-1 !my-1" />
+        <div>
+          <ListNodeItem
+            :title="node.name"
+            :url="node.url"
+            network="Testnet"
+            :status="'online'"
+            :added="node.dateAdded"
+          />
         </div>
-        <Button
-          @click="doSomething(node)"
-          type="button"
-          class="p-button-raised p-button-text"
-        >
-          Do Something
-        </Button>
       </div>
     </div>
   </div>
@@ -47,6 +38,7 @@
 <script lang="ts" setup>
 // Components
 import Button from "primevue/button";
+import Divider from "primevue/divider";
 import AddNodeDialog from "./components/AddNodeDialog.vue";
 
 // Imports
@@ -57,6 +49,7 @@ import { GoalkeeperNode } from "@/db/types/node";
 import { ref } from "vue";
 import { useRouter } from "vue-router";
 import { invoke } from "@tauri-apps/api";
+import ListNodeItem from "./components/ListNodeItem.vue";
 // Composeables
 const toast = useToast();
 const router = useRouter();
@@ -82,7 +75,7 @@ async function doSomething(node: GoalkeeperNode) {
 }
 
 async function addNode() {
-  showAddNodeDialog.value = false;
+  showAddNodeDialog.value = !showAddNodeDialog.value;
   await getNodes();
 }
 

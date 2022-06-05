@@ -1,43 +1,45 @@
 <template>
   <Dialog :auto-z-index="false" :header="t('addNodeTitle')">
-    <FormKit id="form" type="form" @submit="addNode" v-model="formData">
-      <FormKit
-        :label="t('name')"
-        type="text"
-        name="name"
-        validation="required"
-        validation-visibility="dirty"
-      />
-      <FormKit
-        :label="t('serverUrl')"
-        type="url"
-        name="url"
-        validation="required|url"
-        validation-visibility="dirty"
-      >
+    <div class="w-[60vw] max-w-sm">
+      <FormKit id="form" type="form" @submit="addNode" v-model="formData">
+        <FormKit
+          :label="t('name')"
+          type="text"
+          name="name"
+          validation="required"
+          validation-visibility="dirty"
+        />
+        <FormKit
+          :label="t('serverUrl')"
+          type="url"
+          name="url"
+          validation="required|url"
+          validation-visibility="dirty"
+        >
+        </FormKit>
+        <FormKit
+          :label="t('apiToken')"
+          type="text"
+          name="apiToken"
+          validation="required|exactLength:64"
+          validation-visibility="dirty"
+        />
+        <template #actions>
+          <div class="flex justify-between items-center py-2">
+            <FormKit
+              :classes="{
+                outer: 'm-0',
+              }"
+              type="submit"
+            />
+            <ConnectionValidator
+              @click="testConnection"
+              :state="connectionState"
+            />
+          </div>
+        </template>
       </FormKit>
-      <FormKit
-        :label="t('apiToken')"
-        type="text"
-        name="apiToken"
-        validation="required|exactLength:64"
-        validation-visibility="dirty"
-      />
-      <template #actions>
-        <div class="flex justify-between items-center py-2">
-          <FormKit
-            :classes="{
-              outer: 'm-0',
-            }"
-            type="submit"
-          />
-          <ConnectionValidator
-            @click="testConnection"
-            :state="connectionState"
-          />
-        </div>
-      </template>
-    </FormKit>
+    </div>
   </Dialog>
 </template>
 
@@ -48,7 +50,6 @@ import Dialog from "primevue/dialog";
 import { reactive, ref } from "vue";
 import { GoalkeeperNode } from "@/db/types/node";
 import { db } from "@/db/database";
-import { useRouter } from "vue-router";
 import { useToast } from "@/composables/useToast";
 import { useI18n } from "vue-i18n";
 import { messages } from "../i18n/messages";

@@ -1,11 +1,11 @@
 <template>
   <Toast position="top-right" />
   <div class="flex w-screen">
-    <Header></Header>
+    <Header />
   </div>
-  <div class="flex w-screen h-full">
+  <div class="flex w-screen">
     <Sidebar></Sidebar>
-    <div class="p-4 w-full">
+    <div class="p-4 w-full bg-gk-alice-blue">
       <router-view></router-view>
     </div>
   </div>

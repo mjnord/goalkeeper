@@ -7,7 +7,7 @@
     <div class="flex">
       <Button
         icon="pi pi-cog"
-        class="p-button-rounded p-button-info p-button-text p-button-lg !text-white mr-2"
+        class="p-button-rounded p-button-info p-button-text p-button-lg !text-white mr-6"
       />
     </div>
   </div>
