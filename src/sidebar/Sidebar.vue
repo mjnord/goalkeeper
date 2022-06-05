@@ -11,7 +11,11 @@
           'fill-white': $route.name === name,
         }"
       ></component>
-      <p>
+      <p
+        :class="{
+          'text-white': $route.name === name,
+        }"
+      >
         {{ t(i18n) }}
       </p>
     </div>
