@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col border h-screen">
+  <div class="flex flex-col border-r h-screen">
     <div
       class="p-1 flex"
       v-for="{ i18n, name, icon } in activeRoutes"

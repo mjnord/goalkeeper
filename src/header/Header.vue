@@ -1,12 +1,6 @@
 <template>
-  <div class="flex w-screen">
-    <div
-      class="p-3 bg-slate-300 rounded-md shadow-md cursor-pointer m-2 h-16"
-    >
-      <p>
-        {{ t("headerTitle") }}
-      </p>
-    </div>
+  <div class="flex bg-gk-oxford-blue h-16 w-screen items-center justify-center">
+    <img src="@/assets/img/goalkeeper-logo-text.svg" />
   </div>
 </template>
 
