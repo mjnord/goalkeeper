@@ -11,7 +11,8 @@ module.exports = {
         'gk-lime-green': '#2CC904',
         'gk-medium-blue': '#0501DD',
         'gk-oxford-blue': '#031D44',
-        'gk-red': '#FF0000'
+        'gk-red': '#FF0000',
+        'gk-periwinkle-crayola':'#C3D0EA'
       }
     },
   },

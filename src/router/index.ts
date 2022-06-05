@@ -1,3 +1,4 @@
+import Compass from "@/assets/icons/Compass.vue";
 import ServerNetwork from "@/assets/icons/ServerNetwork.vue";
 import { Component } from "vue";
 import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router";
@@ -18,6 +19,16 @@ export const routes: GoalkeeperRoute[] = [
       active: true,
       i18n: "nodesPage",
       icon: ServerNetwork,
+    },
+    component: () => import("../pages/nodes-page/NodesPage.vue"),
+  },
+  {
+    path: "/discover",
+    name: "discover-page",
+    meta: {
+      active: true,
+      i18n: "discoverPage",
+      icon: Compass,
     },
     component: () => import("../pages/nodes-page/NodesPage.vue"),
   },

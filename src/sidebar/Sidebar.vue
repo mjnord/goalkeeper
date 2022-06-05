@@ -1,7 +1,7 @@
 <template>
-  <div class="flex flex-col border-r h-screen">
+  <div class="flex flex-col h-screen bg-gk-periwinkle-crayola p-3">
     <div
-      class="p-1 flex"
+      class="p-1 flex items-center space-x-3 cursor-pointer hover:bg-gk-medium-blue hover:bg-opacity-10 transition-colors rounded-md"
       v-for="{ i18n, name, icon } in activeRoutes"
       @click="$router.push({ name })"
     >
@@ -10,8 +10,9 @@
         :class="{
           'fill-white': $route.name === name,
         }"
-      ></component>
+      />
       <p
+        class="text-xl"
         :class="{
           'text-white': $route.name === name,
         }"
