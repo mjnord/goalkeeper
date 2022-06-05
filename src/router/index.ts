@@ -2,7 +2,7 @@ import Compass from "@/assets/icons/Compass.vue";
 import ServerNetwork from "@/assets/icons/ServerNetwork.vue";
 import { Component } from "vue";
 import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router";
-import NodeDetailsPage from "../pages/node-details/NodeDetails.vue";
+import NodeDetailsPage from "../pages/node-details-page/NodeDetailsPage.vue";
 import NodesPage from "../pages/nodes-page/NodesPage.vue";
 
 type GoalkeeperRoute = RouteRecordRaw & {
@@ -36,10 +36,10 @@ export const routes: GoalkeeperRoute[] = [
   },
   {
     path: "/nodes/:nodeId",
-    name: "node-details",
+    name: "node-details-page",
     meta: {
       active: false,
-      i18n: "nodeDetails",
+      i18n: "nodeDetailsPage",
     },
     component: NodeDetailsPage,
   },
@@ -52,7 +52,7 @@ export const routes: GoalkeeperRoute[] = [
       active: false,
       i18n: "not-found",
     },
-    component: () => import("../pages/nodes-page/NodesPage.vue"),
+    redirect: "/nodes",
   },
 ];
 
