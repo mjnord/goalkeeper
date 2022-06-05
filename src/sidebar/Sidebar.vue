@@ -1,10 +1,16 @@
 <template>
   <div class="flex flex-col border h-screen">
     <div
-      class="p-3 bg-slate-300 rounded-md shadow-md cursor-pointer m-2"
-      v-for="{ i18n, name } in activeRoutes"
+      class="p-1 flex"
+      v-for="{ i18n, name, icon } in activeRoutes"
       @click="$router.push({ name })"
     >
+      <component
+        :is="icon"
+        :class="{
+          'fill-white': $route.name === name,
+        }"
+      ></component>
       <p>
         {{ t(i18n) }}
       </p>
