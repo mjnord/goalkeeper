@@ -1,7 +1,7 @@
 <template>
   <Toast position="top-right" />
   <div class="flex w-screen">
-    <Toolbar></Toolbar>
+    <Sidebar></Sidebar>
     <div class="p-4 w-full">
       <router-view></router-view>
     </div>
@@ -10,5 +10,5 @@
 
 <script setup lang="ts">
 import Toast from "primevue/toast";
-import Toolbar from "./toolbar/Toolbar.vue";
+import Sidebar from "./toolbar/Sidebar.vue";
 </script>
